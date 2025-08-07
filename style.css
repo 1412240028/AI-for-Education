@@ -1,0 +1,695 @@
+/* ========================
+   GLOBAL STYLES
+   ======================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease;
+}
+
+a {
+    text-decoration: none;
+    color: #58a6ff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #79c0ff;
+}
+
+/* ========================
+   LAYOUT & HEADER
+   ======================== */
+header {
+    background-color: #161b22;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #30363d;
+    position: relative;
+    padding-left: 60px;
+}
+
+header h1 {
+    margin: 0;
+    color: #58a6ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #30363d;
+    color: #6a737d;
+}
+
+/* ========================
+   OFF-CANVAS NAVIGATION (HAMBURGER MENU)
+   ======================== */
+#hamburger-menu {
+    position: fixed;
+    top: 25px;
+    left: 20px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #c9d1d9;
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+#hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #161b22;
+    padding-top: 80px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease;
+    z-index: 99;
+}
+
+nav.active {
+    left: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav li {
+    width: 100%;
+}
+
+nav a {
+    display: block;
+    padding: 15px 20px;
+    color: #c9d1d9;
+    font-weight: bold;
+    border-radius: 0;
+    text-align: left;
+}
+
+nav a:hover {
+    background-color: #30363d;
+    color: #58a6ff;
+}
+
+nav a.active {
+    background-color: #58a6ff;
+    color: #0d1117;
+    border: none;
+    box-shadow: none;
+}
+
+/* ========================
+   CONTENT SECTIONS & ANIMATION
+   ======================== */
+.content-section {
+    margin-bottom: 60px;
+    padding: 30px;
+    background-color: #1f242d;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.content-section.show {
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2);
+}
+
+h2 {
+    border-bottom: 2px solid #58a6ff;
+    padding-bottom: 10px;
+    color: #58a6ff;
+    font-size: 1.8em;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 15px;
+}
+
+/* ========================
+   THEME TOGGLE BUTTON
+   ======================== */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c9d1d9;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 100;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* ========================
+   GLOSARIUM ACCORDION STYLING
+   ======================== */
+.accordion {
+    background-color: #1f242d;
+    color: #c9d1d9;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: 0.4s;
+    border-bottom: 1px solid #30363d;
+}
+
+.accordion:hover,
+.accordion.active {
+    background-color: #30363d;
+    color: #58a6ff;
+}
+
+.accordion:after {
+    content: '+';
+    font-size: 1.5em;
+    color: #c9d1d9;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion.active:after {
+    content: "-";
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: #161b22;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.panel p {
+    padding: 10px 0;
+}
+
+/* ========================
+   QUIZ STYLING
+   ======================== */
+#kuis-container {
+    padding: 20px;
+    background-color: #161b22;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    margin-top: 20px;
+}
+
+#pertanyaan p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#pilihan-jawaban {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#pilihan-jawaban button {
+    background-color: #1f242d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+#pilihan-jawaban button:hover:not(.selected) {
+    background-color: #30363d;
+    border-color: #58a6ff;
+}
+
+#pilihan-jawaban button.selected {
+    background-color: #58a6ff;
+    color: #0d1117;
+}
+
+#pilihan-jawaban button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.penjelasan-text {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1f242d;
+    border-left: 4px solid #58a6ff;
+    border-radius: 4px;
+    font-style: italic;
+    font-size: 0.95em;
+    color: #c9d1d9;
+}
+
+/* ========================
+   QUIZ NAVIGATION & RESULTS
+   ======================== */
+#navigasi-kuis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#navigasi-kuis button {
+    background-color: #58a6ff;
+    color: #0d1117;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#navigasi-kuis button:hover:not(:disabled) {
+    background-color: #79c0ff;
+}
+
+#navigasi-kuis button#tombol-sebelumnya {
+    background-color: #30363d;
+    color: #c9d1d9;
+}
+
+#navigasi-kuis button#tombol-submit {
+    background-color: #28a745;
+    color: white;
+}
+
+#navigasi-kuis button:disabled {
+    background-color: #6a737d;
+    color: #aeb5bf;
+    cursor: not-allowed;
+}
+
+.hasil-kuis {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.hasil-kuis li {
+    background-color: #1f242d;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    margin-bottom: 15px;
+}
+
+.hasil-kuis li p {
+    margin: 5px 0;
+}
+
+.hasil-kuis .pertanyaan-hasil {
+    font-weight: bold;
+    color: #58a6ff;
+}
+
+.hasil-kuis .jawaban-user.benar {
+    color: #28a745;
+}
+
+.hasil-kuis .jawaban-user.salah {
+    color: #dc3545;
+}
+
+.hasil-kuis .jawaban-benar {
+    font-style: italic;
+    color: #c9d1d9;
+}
+
+/* ========================
+   BLOG & ARTIKEL
+   ======================== */
+.sumber-artikel {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #aeb5bf;
+    margin-top: 30px;
+    border-top: 1px solid #30363d;
+    padding-top: 15px;
+}
+
+/* ========================
+   STUDI KASUS STYLING
+   ======================== */
+#kasus-container {
+    padding: 20px;
+    background-color: #161b22;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    margin-top: 20px;
+}
+
+#skenario-kasus p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+#pilihan-kasus {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.kasus-pilihan {
+    background-color: #1f242d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.kasus-pilihan:hover:not(.selected) {
+    background-color: #30363d;
+    border-color: #58a6ff;
+}
+
+.kasus-pilihan.selected {
+    background-color: #58a6ff;
+    color: #0d1117;
+}
+
+.konsekuensi {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1f242d;
+    border-left: 4px solid #58a6ff;
+    border-radius: 4px;
+    font-style: italic;
+}
+
+.reset-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+}
+
+.reset-button:hover {
+    background-color: #5a6268;
+}
+
+/* ========================
+   LIGHT MODE STYLING
+   ======================== */
+body.light-mode {
+    background-color: #f0f2f5;
+    color: #161b22;
+}
+
+body.light-mode header {
+    background-color: #ffffff;
+    border-color: #dcdfe6;
+}
+
+body.light-mode header h1,
+body.light-mode h2,
+body.light-mode a {
+    color: #007bff;
+}
+
+body.light-mode .content-section {
+    background-color: #ffffff;
+    border-color: #dcdfe6;
+}
+
+body.light-mode nav {
+    background-color: #ffffff;
+}
+
+body.light-mode nav a {
+    color: #161b22;
+}
+
+body.light-mode nav a:hover {
+    background-color: #e9ecef;
+}
+
+body.light-mode nav a.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+body.light-mode footer {
+    border-color: #dcdfe6;
+    color: #6c757d;
+}
+
+body.light-mode #hamburger-menu span {
+    background-color: #161b22;
+}
+
+body.light-mode #theme-toggle {
+    color: #161b22;
+}
+
+body.light-mode #kuis-container {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+body.light-mode #pilihan-jawaban button {
+    background-color: #e9ecef;
+    color: #161b22;
+    border-color: #ced4da;
+}
+
+body.light-mode #pilihan-jawaban button:hover:not(.selected) {
+    background-color: #dee2e6;
+    border-color: #007bff;
+}
+
+body.light-mode #pilihan-jawaban button.selected {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+body.light-mode #navigasi-kuis button {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+body.light-mode #navigasi-kuis button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+body.light-mode #navigasi-kuis button#tombol-sebelumnya {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+body.light-mode #navigasi-kuis button#tombol-submit {
+    background-color: #28a745;
+    color: white;
+}
+
+body.light-mode .hasil-kuis li {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
+
+body.light-mode .hasil-kuis .pertanyaan-hasil {
+    color: #007bff;
+}
+
+body.light-mode .hasil-kuis .jawaban-benar {
+    color: #6c757d;
+}
+
+body.light-mode .penjelasan-text {
+    background-color: #e9ecef;
+    border-left-color: #007bff;
+    color: #161b22;
+}
+
+body.light-mode .accordion {
+    background-color: #e9ecef;
+    color: #161b22;
+    border-bottom-color: #ced4da;
+}
+
+body.light-mode .accordion:hover {
+    background-color: #dee2e6;
+    color: #007bff;
+}
+
+body.light-mode .accordion.active,
+body.light-mode .accordion:hover {
+    background-color: #dee2e6;
+}
+
+body.light-mode .accordion:after {
+    color: #161b22;
+}
+
+body.light-mode .panel {
+    background-color: #f8f9fa;
+}
+
+body.light-mode .sumber-artikel {
+    color: #6c757d;
+    border-top-color: #dcdfe6;
+}
+
+body.light-mode #kasus-container {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+body.light-mode .kasus-pilihan {
+    background-color: #e9ecef;
+    color: #161b22;
+    border-color: #ced4da;
+}
+
+body.light-mode .kasus-pilihan:hover:not(.selected) {
+    background-color: #dee2e6;
+    border-color: #007bff;
+}
+
+body.light-mode .kasus-pilihan.selected {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+body.light-mode .konsekuensi {
+    background-color: #e9ecef;
+    border-left-color: #007bff;
+    color: #161b22;
+    font-style: italic;
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+   ======================== */
+@media (max-width: 768px) {
+    header {
+        padding-left: 20px;
+    }
+    
+    #hamburger-menu {
+        left: 20px;
+    }
+
+    main {
+        padding: 10px; /* Kurangi padding di main content */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Ukuran font H2 lebih kecil */
+    }
+    
+    .content-section {
+        padding: 20px; /* Kurangi padding di setiap section */
+        margin-bottom: 30px; /* Kurangi jarak antar section */
+    }
+
+    /* Kuis */
+    #pertanyaan p {
+        font-size: 1em; /* Ukuran font pertanyaan lebih kecil */
+        margin-bottom: 15px;
+    }
+
+    #navigasi-kuis {
+        flex-direction: column; /* Tombol navigasi kuis jadi vertikal */
+        gap: 10px;
+    }
+
+    #navigasi-kuis button {
+        width: 100%; /* Lebar tombol navigasi kuis full */
+        box-sizing: border-box; /* Pastikan padding gak bikin lebar bertambah */
+    }
+
+    /* Glosarium */
+    .accordion {
+        font-size: 1em;
+        padding: 15px;
+    }
+
+    /* Studi Kasus */
+    #skenario-kasus p {
+        font-size: 1em;
+    }
+}
